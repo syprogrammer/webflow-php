@@ -34,8 +34,11 @@
   $("button").click(function(){
     console.log("clicked")
     
-    $.get("https://pixelmascot.com/builtdemo/ishan_gaur/categories.php", function(data, status){
+    $.get("https://syhost.000webhostapp.com/blogapi.php", function(data, status){
       console.log(data)
+      if(data.status == true){
+        alert("Data updated successfully")
+      }
     });
   });
 });
