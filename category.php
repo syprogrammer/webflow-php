@@ -2,6 +2,15 @@
 header('Content-Type:application/json');
 header('Access-control-Allow-Origin: *');
 
+function checkerr($response){
+     $patcharr = json_decode($response, true);
+    if(array_key_exists('err',$patcharr)){
+        $jsonarr = array("message" => "some error occured", "status" => false);
+        echo json_encode($jsonarr);
+        exit();
+    }
+}
+
 //get blog post data api call
 $curl = curl_init();
 
@@ -21,6 +30,7 @@ curl_setopt_array($curl, [
 
 $response = curl_exec($curl);
 $err = curl_error($curl);
+checkerr($response);
 
 //get category data api call
 curl_setopt_array($curl, [
@@ -38,6 +48,7 @@ curl_setopt_array($curl, [
 ]);
 
 $rescat = curl_exec($curl);
+checkerr($rescat);
 $caterr = curl_error($curl);
 $rescatsarr = json_decode($rescat, true);
 
@@ -92,12 +103,8 @@ for ($i = 0; $i <= 4; $i++) {
 if ($err) {
     echo "cURL Error #:" . $err;
 } else {
-    $patcharr = json_decode($response, true);
-    if(array_key_exists('err',$patcharr)){
-        $jsonarr = array("message" => "some error occured", "status" => false);
-        echo json_encode($jsonarr);
-        exit();
-    }
+    checkerr($response);
+    
 }
     $blogarr[$i] = array();
     $blogarr[$i]['id'] = $arr['items'][$i]['_id'];

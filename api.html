@@ -98,9 +98,11 @@
       $(document).ready(function () {
         $(".status-ok").hide();
         $(".status-wrong").hide();
+
         $("button").click(function () {
-          $("#loader").addClass("loader")
-          
+          $("#loader").addClass("loader");
+          $(".status-ok").hide();
+          $(".status-wrong").hide();
           $.get(
             "https://syhost.000webhostapp.com/blogapi.php",
             function (data, status) {
