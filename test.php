@@ -88,17 +88,13 @@ for ($i = 0; $i <= 4; $i++) {
     $response = curl_exec($curl);
     $err = curl_error($curl);
     echo $err;
-    //if data is successfully retrived performing next operation
-if ($err) {
-    echo "cURL Error #:" . $err;
-} else {
-    $patcharr = json_decode($response, true);
-    if(array_key_exists('err',$patcharr)){
-        $jsonarr = array("message" => "some error occured", "status" => false);
-        echo json_encode($jsonarr);
-        exit();
+    if ($err) {
+        $jsonarr['message'] = "somer error occured";
+        $jsonarr['status'] = false;
+    } else {
+
+        curl_close($curl);
     }
-}
     $blogarr[$i] = array();
     $blogarr[$i]['id'] = $arr['items'][$i]['_id'];
     $blogarr[$i]['name'] = $arr['items'][$i]['name'];
