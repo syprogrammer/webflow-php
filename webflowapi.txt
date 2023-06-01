@@ -1,0 +1,71 @@
+[
+  {
+    "_id": "6475ae49e0efda06ad9ac33e",
+    "createdOn": "2023-05-30T08:05:29.224Z",
+    "name": "blog",
+    "shortName": "blog-3529a8",
+    "timezone": "Asia/Kolkata",
+    "database": "6475ae8a7697e6b0c0d28b15"
+  }
+]
+
+
+[
+  {
+    "_id": "6475ae8d7697e6b0c0d28cfe",
+    "lastUpdated": "2023-05-30T08:06:37.996Z",
+    "createdOn": "2023-05-30T08:06:37.577Z",
+    "name": "Blog Posts",
+    "slug": "post",
+    "singularName": "Blog Post"
+  }
+]
+
+{
+    "_id": "6477295fb9047f0ddf589bb2",
+    "lastUpdated": "2023-05-31T11:02:55.863Z",
+    "createdOn": "2023-05-31T11:02:55.780Z",
+    "name": "Categories",
+    "slug": "category",
+    "singularName": "Category"
+  }
+
+  [
+  {
+    "_id": "6475ae49e0efda06ad9ac33e",
+    "createdOn": "2023-05-30T08:05:29.224Z",
+    "name": "blog",
+    "shortName": "blog-3529a8",
+    "timezone": "Asia/Kolkata",
+    "database": "6475ae8a7697e6b0c0d28b15"
+  }
+]
+
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, [
+  CURLOPT_URL => "https://api.webflow.com/collections/6477295fb9047f0ddf589bb2/items",
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => "",
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 30,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => "GET",
+  CURLOPT_HTTPHEADER => [
+    "accept: application/json",
+    "authorization: Bearer ad271c28bc4775858cf68186e4fd68b6b3f46365289a94f06f82f91642156cdd"
+  ],
+]);
+
+$response = curl_exec($curl);
+$err = curl_error($curl);
+
+curl_close($curl);
+
+if ($err) {
+  echo "cURL Error #:" . $err;
+} else {
+  echo $response;
+}
