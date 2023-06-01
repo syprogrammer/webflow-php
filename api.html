@@ -16,32 +16,106 @@
     button {
       cursor: pointer;
     }
+    .form {
+      display: flex;
+
+      flex-direction: column;
+      align-items: center;
+    }
+    .form img {
+      width: 60vw;
+    }
+    .update {
+      padding: 10px 20px;
+      background-color: aqua;
+      border: 1px solid transparent;
+      border-radius: 20px;
+      margin-top: 40px;
+    }
+    .status-ok,
+    .status-wrong {
+      width: fit-content;
+      display: flex;
+      gap: 5px;
+    }
+
+    .status-ok img,
+    .status-wrong img {
+      width: 50px;
+    }
+
+    /* //loader */
+    .loader {
+      border: 16px solid #f3f3f3;
+      border-radius: 50%;
+      border-top: 16px solid #3498db;
+      width: 120px;
+      height: 120px;
+      -webkit-animation: spin 2s linear infinite; /* Safari */
+      animation: spin 2s linear infinite;
+    }
+
+    /* Safari */
+    @-webkit-keyframes spin {
+      0% {
+        -webkit-transform: rotate(0deg);
+      }
+      100% {
+        -webkit-transform: rotate(360deg);
+      }
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
   </style>
   <body>
     <!-- post form  -->
     <div class="api-section">
       <div class="api-container">
         <div class="api-wrapper form">
-      
-            <button class="update">Update post-summary</button>
-      
+          <img src="/webflow-php/api.png" alt="" />
+          <div class="" id="loader"></div>
+          <div class="status status-ok">
+            <img src="/webflow-php/ok.png" alt="" />
+            <p class="status-ok-msg">Data updated successfully</p>
+          </div>
+          <div class="status status-wrong">
+            <img src="/webflow-php/cross.png" alt="" />
+            <p class="status-ok-msg">Some error occured</p>
+          </div>
+          <button class="update">Update post-summary</button>
         </div>
       </div>
     </div>
     <!-- script -->
     <script>
-   $(document).ready(function(){
-  $("button").click(function(){
-    console.log("clicked")
-    
-    $.get("https://syhost.000webhostapp.com/blogapi.php", function(data, status){
-      console.log(data)
-      if(data.status == true){
-        alert("Data updated successfully")
-      }
-    });
-  });
-});
+      $(document).ready(function () {
+        $(".status-ok").hide();
+        $(".status-wrong").hide();
+        $("button").click(function () {
+          $("#loader").addClass("loader")
+
+          $.get(
+            "https://syhost.000webhostapp.com/blogapi.php",
+            function (data, status) {
+              console.log(data);
+              if (data.status == true) {
+                $(".status-ok").show();
+                $("#loader").removeClass("loader");
+              } else {
+                $(".status-wrong").show();
+                $("#loader").removeClass("loader");
+              }
+            }
+          );
+        });
+      });
     </script>
   </body>
 </html>
